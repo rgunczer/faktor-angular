@@ -1,0 +1,47 @@
+
+Enrolled<div>
+  <h2>fAkToR</h2>
+  <div>
+      <label for="apiKey">x-api-key:</label><input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey">
+  </div>
+  <div>
+      <label for="quizId">quiz Id:</label><input type="text" [(ngModel)]="params.quizId">
+  </div>
+  <div>
+      <label for="progressId">progress Id:</label><input type="text" [(ngModel)]="params.progressId">
+  </div>
+  <div>
+      <label for="sectionId">section Id:</label><input type="text" [(ngModel)]="params.sectionId">
+  </div>
+  <div>
+      <label>Parameters:</label>
+      <button  (click)="onPersist('save')">Save</button>
+      <button (click)="onPersist('load')">Load</button>
+  </div>
+  <hr>
+  Actions:
+  <button ng-click="onGetQuestions()">Get Questions</button>
+  <span ng-show="loadingQuestions">Loading...</span>
+  <button ng-disabled="quiz.questions.length === 0" (click)="onSend()">Send One</button>
+  <button ng-disabled="quiz.questions.length === 0" (click)="onBegin()">Begin</button>
+  <button ng-click="onStop()">Stop</button>
+  <span ng-show="loadingAnswers">Loading...</span>
+  <hr>
+  <h3>
+      Questions: {{ solver.quiz.questions.length }},
+      Passing: {{ solver.quiz.passingMark }},
+      Score {{ solver.assessment.score }},
+      Result: {{ solver.assessment.result }}</h3>
+  <hr>
+  <h3>Generations: {{ solver.generations.length }}</h3>
+  <div *ngFor="let g of solver.generations">
+      {{ $index }}.)
+      score: {{ g.score + ' [' + g.result + ']' }},
+      Q: {{ g.questionIndex }} A: {{ g.answerIndex }}
+      {{ g.info }}
+  </div>
+  <hr>
+  <div *ngFor="let q of solver.quiz.questions; let i = index">
+      <!-- <question [q]="q" index="{{ i }}"></question> -->
+  </div>
+</div>
