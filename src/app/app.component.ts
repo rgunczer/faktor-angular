@@ -20,15 +20,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         console.log('ngOnInit...');
-
-        // this.utilService.seveSettings(
-        //     {
-        //         xApiKey: '-',
-        //         quizId: 0,
-        //         sectionId: 0,
-        //         progressId: 0
-        //     }
-        // );
         this.onPersist({way: 'load'});
     }
 
