@@ -1,4 +1,3 @@
- Enrolled
 <div>
     <h2>fAkToR</h2>
     <div>
@@ -26,16 +25,16 @@
     <button ng-click="onStop()">Stop</button>
     <span ng-show="loadingAnswers">Loading...</span>
     <hr>
-    <h3>
+    <!-- <h3>
         Questions: {{ solver.quiz.questions.length }}, Passing: {{ solver.quiz.passingMark }}, Score {{ solver.assessment.score }},
         Result: {{ solver.assessment.result }}</h3>
     <hr>
     <h3>Generations: {{ solver.generations.length }}</h3>
     <div *ngFor="let g of solver.generations">
         {{ $index }}.) score: {{ g.score + ' [' + g.result + ']' }}, Q: {{ g.questionIndex }} A: {{ g.answerIndex }} {{ g.info }}
-    </div>
-    <hr>
-    <div *ngFor="let q of solver.quiz.questions; let i = index">
+    </div> -->
+    <!-- <hr> -->
+    <!-- <div *ngFor="let q of solver.quiz.questions; let i = index"> -->
         <!-- <question [q]="q" index="{{ i }}"></question> -->
-    </div>
+    <!-- </div> -->
 </div>

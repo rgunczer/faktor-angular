@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilService } from './util.service';
 import { ISettings } from './isettings';
 import { IPersist } from './ipersist';
+import { ApiService } from './api.service';
 
 @Component({
     selector: 'app-root',
@@ -16,11 +17,16 @@ export class AppComponent implements OnInit {
         sectionId: 0
     };
 
-    constructor(private utilService: UtilService) {}
+    constructor(
+        private utilService: UtilService,
+        private apiService: ApiService
+    ) {
+    }
 
     ngOnInit() {
         console.log('ngOnInit...');
         this.onPersist({way: 'load'});
+        this.apiService.init();
     }
 
     onPersist(persist: IPersist) {
@@ -29,5 +35,13 @@ export class AppComponent implements OnInit {
         } else if (persist.way === 'load') {
             this.params = this.utilService.loadSettings();
         }
+    }
+
+    onSend() {
+        console.log('onSend...');
+    }
+
+    onBegin() {
+        console.log('onBegin...');
     }
 }
