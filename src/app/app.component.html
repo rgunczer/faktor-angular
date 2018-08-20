@@ -25,6 +25,16 @@
     <button ng-click="onStop()">Stop</button>
     <span ng-show="loadingAnswers">Loading...</span>
     <hr>
+        <app-generation></app-generation>
+    <hr>
+    <button (click)="updateChildComponent()">ClickMe</button>
+    <hr>
+        <app-stat [id]="'a'"></app-stat>
+        <app-stat [id]="'b'"></app-stat>
+        <app-stat [id]="'c'"></app-stat>
+    <hr>
+        <button (click)="showStats()">Show Stats</button>
+    <hr>
     <!-- <h3>
         Questions: {{ solver.quiz.questions.length }}, Passing: {{ solver.quiz.passingMark }}, Score {{ solver.assessment.score }},
         Result: {{ solver.assessment.result }}</h3>

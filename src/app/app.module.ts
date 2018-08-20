@@ -4,12 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { GenerationComponent } from './generation/generation.component';
+import { StatComponent } from './stat/stat.component';
 
 console.log(`Angular Version is: ` + VERSION.full);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GenerationComponent,
+    StatComponent
   ],
   imports: [
     BrowserModule,

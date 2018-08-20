@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { UtilService } from './util.service';
 import { ISettings } from './isettings';
 import { IPersist } from './ipersist';
 import { ApiService } from './api.service';
+import { GenerationComponent } from './generation/generation.component';
+import { StatComponent } from './stat/stat.component';
 
 @Component({
     selector: 'app-root',
@@ -10,6 +12,11 @@ import { ApiService } from './api.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+    @ViewChild(GenerationComponent) private generationComponent: GenerationComponent;
+
+    @ViewChildren(StatComponent) allStats: QueryList<StatComponent>;
+
     params: ISettings =  {
         xApiKey: '',
         quizId: 0,
@@ -21,6 +28,10 @@ export class AppComponent implements OnInit {
         private utilService: UtilService,
         private apiService: ApiService
     ) {
+    }
+
+    updateChildComponent() {
+        this.generationComponent.updateValue();
     }
 
     ngOnInit() {
@@ -43,5 +54,16 @@ export class AppComponent implements OnInit {
 
     onBegin() {
         console.log('onBegin...');
+    }
+
+    showStats() {
+        // alert(this.allStats.length);
+        // this.allStats.first.value = 'Test';
+        this.allStats.forEach((item: StatComponent) => {
+            if (item.id === 'b') {
+                // item.value = 'Test';
+                item.updateValue();
+            }
+        });
     }
 }
