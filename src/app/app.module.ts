@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { GenerationComponent } from './generation/generation.component';
 import { StatComponent } from './stat/stat.component';
+import { CapitalizePipe } from './capitalize.pipe';
 
 console.log(`Angular Version is: ` + VERSION.full);
 
@@ -13,7 +14,8 @@ console.log(`Angular Version is: ` + VERSION.full);
   declarations: [
     AppComponent,
     GenerationComponent,
-    StatComponent
+    StatComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

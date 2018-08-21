@@ -1,5 +1,6 @@
 <div>
     <h2>fAkToR</h2>
+    <h3>Async Data: {{ asyncData | async }} </h3>
     <div>
         <label for="apiKey">x-api-key:</label><input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey">
     </div>
@@ -27,13 +28,32 @@
     <hr>
         <app-generation></app-generation>
     <hr>
-    <button (click)="updateChildComponent()">ClickMe</button>
+    <button class="btn btn-primary" (click)="updateChildComponent()">ClickMe</button>
     <hr>
         <app-stat [id]="'a'"></app-stat>
         <app-stat [id]="'b'"></app-stat>
         <app-stat [id]="'c'"></app-stat>
     <hr>
         <button (click)="showStats()">Show Stats</button>
+    <hr>
+
+    <button (click)="showHideDiv()">Show / Hide</button>
+    <br>
+    <div [hidden]="hideDiv" style="background-color: red">Some Div</div>
+
+    <div [ngClass]="{ 'myBlue': myItemSet }">My Item...</div>
+    <div [ngClass]="myClassToSet">My Item...</div>
+
+    <input type="text" [(ngModel)]="myClassToSet">
+
+    <hr>
+
+    sampleText: <input type="text" [(ngModel)]="sampleText">
+
+    capitalize: {{ sampleText | capitalize }}
+
+
+
     <hr>
     <!-- <h3>
         Questions: {{ solver.quiz.questions.length }}, Passing: {{ solver.quiz.passingMark }}, Score {{ solver.assessment.score }},

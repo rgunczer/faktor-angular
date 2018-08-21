@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 interface IUrlData {
     q: string;
     a: string;
-};
+}
 
 @Injectable({
     providedIn: 'root'
