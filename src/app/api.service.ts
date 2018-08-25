@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 
 interface IUrlData {
     q: string;
@@ -32,7 +34,33 @@ export class ApiService {
         return this.lastHttpError;
     }
 
+    handleError<T> (operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error);
+            return of(result as T);
+        };
+    }
+
+    errHandler(error: HttpErrorResponse) {
+        return throwError('HTTP ERROR: ' + error.message);
+    }
+
     init() {
+        this.http.get<IUrlData>('assets/api1.json')
+            .pipe(
+                map((data: IUrlData) => {
+                    data.a += ' ddd';
+                    return data;
+                }),
+                // catchError(this.handleError('api.json', []))
+                catchError(this.errHandler)
+            )
+            .subscribe( (data: IUrlData) => {
+                this.url = data;
+                console.log('init received: ' + JSON.stringify(this.url));
+            } );
+
+        /*
         this.http.get<IUrlData>('assets/api.json')
             .subscribe(
                 (data: IUrlData) => {
@@ -50,6 +78,7 @@ export class ApiService {
             // .catch((response) => {
             //     logHttpError(response);
             // });
+            */
     }
 /*
             this.getQuestions = function(quizId, xApiKey) {

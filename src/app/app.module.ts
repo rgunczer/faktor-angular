@@ -7,15 +7,21 @@ import { AppComponent } from './app.component';
 import { GenerationComponent } from './generation/generation.component';
 import { StatComponent } from './stat/stat.component';
 import { CapitalizePipe } from './capitalize.pipe';
+import { StopwatchComponent } from './stopwatch/stopwatch.component';
 
-console.log(`Angular Version is: ` + VERSION.full);
+import * as $ from 'jquery';
+
+console.log(`jQuery version is: ${$.fn.jquery}`);
+console.log(`Angular version is: ${VERSION.full}`);
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GenerationComponent,
     StatComponent,
-    CapitalizePipe
+    CapitalizePipe,
+    StopwatchComponent
   ],
   imports: [
     BrowserModule,
