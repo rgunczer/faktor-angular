@@ -46,7 +46,7 @@ export class ApiService {
     }
 
     init() {
-        this.http.get<IUrlData>('assets/api.json')
+        this.http.get<IUrlData>('assets/api1.json')
             .pipe(
                 map((data: IUrlData) => {
                     data.a += ' ddd';
