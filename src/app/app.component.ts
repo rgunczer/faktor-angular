@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { UtilService } from './util.service';
-import { Settings } from './settings.model';
-import { ApiService } from './api.service';
-import { GenerationComponent } from './generation/generation.component';
-
-import * as _ from 'lodash';
-import { Observable, Observer } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
+import { UtilService } from './util.service';
+import { ApiService } from './api.service';
+import { FakeApiService } from './fake-api.service';
+
+import { Settings } from './settings.model';
 import { Solver } from './solver';
 import { Quiz } from './quiz';
+
+import { GenerationComponent } from './generation/generation.component';
 
 @Component({
     selector: 'app-root',
@@ -21,7 +22,6 @@ export class AppComponent implements OnInit {
 
     solver = new Solver();
     quiz = new Quiz();
-    success = false;
 
     @ViewChild(GenerationComponent) private generationComponent: GenerationComponent;
 
@@ -34,7 +34,8 @@ export class AppComponent implements OnInit {
 
     constructor(
         private utilService: UtilService,
-        private apiService: ApiService
+        // private apiService: ApiService
+        private apiService: FakeApiService
     ) {
     }
 
@@ -56,13 +57,11 @@ export class AppComponent implements OnInit {
     }
 
     onSend() {
-        console.log('onSend...');
+        // console.log('onSend...');
 
         this.loadingAnswers = true;
 
         const obj = this.solver.getObjToSend(this.params);
-
-        console.log('obj to send: ', obj);
 
         this.solver.insertNewGeneration();
 
@@ -83,10 +82,11 @@ export class AppComponent implements OnInit {
     }
 
     onBegin() {
-        console.log('onBegin...');
+        // console.log('onBegin...');
 
         this.onPersist('save');
         this.solver.init(this.quiz);
+        this.solver.stop = false;
         this.onSend();
     }
 
@@ -108,7 +108,7 @@ export class AppComponent implements OnInit {
                 finalize(() => this.loadingQuestions = false)
             )
             .subscribe((data: any) => {
-                console.log(data);
+                console.log('data: ', data);
                 this.quiz.questions.length = 0;
                 this.quiz.passingMark = data.assessment.passing_marks;
                 data.assessment.sections[0].questions.forEach(q => {

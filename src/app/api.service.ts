@@ -45,7 +45,7 @@ export class ApiService {
     }
 
     getQuestions(quizId: number, xApiKey: string): Observable<any> {
-        console.log(`getQuestions quizId=${quizId}`);
+        // console.log(`getQuestions quizId=${quizId}`);
         return this.http.get(
             this.url.q + quizId,
             {
@@ -57,7 +57,7 @@ export class ApiService {
     }
 
     postAnswers(obj, xApiKey): Observable<any> {
-        console.log(`postAnswer: ${JSON.stringify(obj)}`);
+        // console.log(`postAnswer: ${JSON.stringify(obj)}`);
         return this.http.post(
             this.url.a,
             {

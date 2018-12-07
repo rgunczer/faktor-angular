@@ -76,7 +76,7 @@
                 Questions: {{ quiz.questions.length }}, Passing: {{ quiz.passingMark }}
             </span>
             &nbsp;
-            <span class="label" [ngClass]="success ? 'label-success' : 'label-default'">
+            <span class="label" [ngClass]="solver.assessment?.result == 'PASS' ? 'label-success' : 'label-default'">
                 Score: {{ solver.assessment?.score }}, Result: {{ solver.assessment?.result }}
             </span>
         </h3>
