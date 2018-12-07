@@ -1,4 +1,4 @@
-export interface ISettings {
+export class Settings {
     xApiKey: string;
     quizId: number;
     sectionId: number;

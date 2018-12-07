@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISettings } from './isettings';
+import { Settings } from './settings.model';
 
 @Injectable({
     providedIn: 'root'
@@ -9,12 +9,12 @@ export class UtilService {
 
     constructor() {}
 
-    loadSettings(): ISettings {
+    loadSettings(): Settings {
         const str = window.localStorage.getItem(this.key);
-        return JSON.parse(str);
+        return JSON.parse(str) || new Settings();
     }
 
-    seveSettings(params: ISettings): void {
+    seveSettings(params: Settings): void {
         window.localStorage.setItem(this.key, JSON.stringify(params));
     }
 }
