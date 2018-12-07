@@ -3,7 +3,6 @@ import { UtilService } from './util.service';
 import { Settings } from './settings.model';
 import { ApiService } from './api.service';
 import { GenerationComponent } from './generation/generation.component';
-import { StatComponent } from './stat/stat.component';
 
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs';
@@ -18,9 +17,11 @@ import { Quiz } from './quiz';
 })
 export class AppComponent implements OnInit {
     loadingQuestions = false;
+    loadingAnswers = false;
 
     solver = new Solver();
     quiz = new Quiz();
+    success = false;
 
     @ViewChild(GenerationComponent) private generationComponent: GenerationComponent;
 
@@ -42,7 +43,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('ngOnInit...');
         this.onPersist('load');
         this.apiService.init();
     }
@@ -57,10 +57,42 @@ export class AppComponent implements OnInit {
 
     onSend() {
         console.log('onSend...');
+
+        this.loadingAnswers = true;
+
+        const obj = this.solver.getObjToSend(this.params);
+
+        console.log('obj to send: ', obj);
+
+        this.solver.insertNewGeneration();
+
+        this.apiService.postAnswers(obj, this.params.xApiKey)
+            .pipe(
+                finalize(() => this.loadingAnswers = false)
+            )
+            .subscribe((data: any) => {
+                this.solver.update(data.assessment.user_score, data.assessment.result);
+
+                if (this.solver.canContinue()) {
+                    this.solver.calcNext();
+                    setTimeout(() => {
+                        this.onSend();
+                    }, 1000);
+                }
+            });
     }
 
     onBegin() {
         console.log('onBegin...');
+
+        this.onPersist('save');
+        this.solver.init(this.quiz);
+        this.onSend();
+    }
+
+    onStop() {
+        console.log('onStop...');
+        this.solver.stop = true;
     }
 
     showStats() {
@@ -68,7 +100,6 @@ export class AppComponent implements OnInit {
     }
 
     onGetQuestions() {
-        this.solver.reset();
         this.quiz.reset();
 
         this.loadingQuestions = true;
@@ -84,6 +115,7 @@ export class AppComponent implements OnInit {
                     q.answers[0].selected = true;
                     this.quiz.questions.push(q);
                 });
+                this.solver.init(this.quiz);
             });
     }
 }

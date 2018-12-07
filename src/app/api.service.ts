@@ -21,11 +21,6 @@ export class ApiService {
 
     constructor(private http: HttpClient) {}
 
-    logHttpError(response: any) {
-        this.lastHttpError = response.data;
-        console.error(JSON.stringify(this.lastHttpError));
-    }
-
     getUrlObject() {
         return this.url;
     }
@@ -34,51 +29,19 @@ export class ApiService {
         return this.lastHttpError;
     }
 
-    handleError<T> (operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error);
-            return of(result as T);
-        };
-    }
-
     errHandler(error: HttpErrorResponse) {
+        this.lastHttpError = error;
         return throwError('HTTP ERROR: ' + error.message);
     }
 
     init() {
         this.http.get<IUrlData>('assets/api.json')
             .pipe(
-                map((data: IUrlData) => {
-                    data.a += ' ddd';
-                    return data;
-                }),
-                // catchError(this.handleError('api.json', []))
                 catchError(this.errHandler)
             )
             .subscribe( (data: IUrlData) => {
                 this.url = data;
-                console.log('init received: ' + JSON.stringify(this.url));
             } );
-
-        /*
-        this.http.get<IUrlData>('assets/api.json')
-            .subscribe(
-                (data: IUrlData) => {
-                    this.url = data;
-                    console.log('init received: ' + JSON.stringify(this.url));
-                },
-                error => {
-                    this.lastHttpError = error;
-                    console.log('error' + JSON.stringify(error));
-                },
-                () => {
-                    console.log('finished...');
-                }
-            );
-            // .catch((response) => {
-            //     logHttpError(response);
-            // });
-            */
     }
 
     getQuestions(quizId: number, xApiKey: string): Observable<any> {
@@ -92,24 +55,20 @@ export class ApiService {
             }
         );
     }
-/*
-            this.postAnswers = function(obj, xApiKey) {
-                return $http({
-                    method: 'POST',
-                    url: url.a,
-                    headers: {
-                        'X-Api-Key': xApiKey
-                    },
-                    data: { data: JSON.stringify(obj) }
-                })
-                    .then(function(response) {
-                        return response.data;
-                    })
-                    .catch(function(response) {
-                        logHttpError(response);
-                    });
-            };
-        });
-*/
+
+    postAnswers(obj, xApiKey): Observable<any> {
+        console.log(`postAnswer: ${JSON.stringify(obj)}`);
+        return this.http.post(
+            this.url.a,
+            {
+                data: JSON.stringify(obj)
+            },
+            {
+                headers: {
+                    'X-Api-Key': xApiKey
+                }
+            }
+        );
+    }
 
 }
