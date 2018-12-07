@@ -10,7 +10,6 @@ import { CapitalizePipe } from './capitalize.pipe';
 import { StopwatchComponent } from './stopwatch/stopwatch.component';
 
 import * as $ from 'jquery';
-import { ObservableTestComponent } from './observable-test/observable-test.component';
 
 console.log(`jQuery version is: ${$.fn.jquery}`);
 console.log(`Angular version is: ${VERSION.full}`);
@@ -21,8 +20,7 @@ console.log(`Angular version is: ${VERSION.full}`);
         GenerationComponent,
         StatComponent,
         CapitalizePipe,
-        StopwatchComponent,
-        ObservableTestComponent
+        StopwatchComponent
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],
