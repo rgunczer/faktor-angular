@@ -80,24 +80,19 @@ export class ApiService {
             // });
             */
     }
-/*
-            this.getQuestions = function(quizId, xApiKey) {
-                $log.debug(`getQuestions quizId=${quizId}`);
-                return $http({
-                    method: 'GET',
-                    url: url.q + quizId,
-                    headers: {
-                        'X-Api-Key': xApiKey
-                    }
-                })
-                    .then(function(response) {
-                        return response.data;
-                    })
-                    .catch(function(response) {
-                        logHttpError(response);
-                    });
-            };
 
+    getQuestions(quizId: number, xApiKey: string): Observable<any> {
+        console.log(`getQuestions quizId=${quizId}`);
+        return this.http.get(
+            this.url.q + quizId,
+            {
+                headers: {
+                    'X-Api-Key': xApiKey
+                }
+            }
+        );
+    }
+/*
             this.postAnswers = function(obj, xApiKey) {
                 return $http({
                     method: 'POST',

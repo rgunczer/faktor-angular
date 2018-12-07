@@ -8,6 +8,7 @@ import { GenerationComponent } from './generation/generation.component';
 import { StatComponent } from './stat/stat.component';
 
 import * as $ from 'jquery';
+import { QuestionComponent } from './question/question.component';
 
 console.log(`jQuery version is: ${$.fn.jquery}`);
 console.log(`Angular version is: ${VERSION.full}`);
@@ -16,7 +17,8 @@ console.log(`Angular version is: ${VERSION.full}`);
     declarations: [
         AppComponent,
         GenerationComponent,
-        StatComponent
+        StatComponent,
+        QuestionComponent
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],

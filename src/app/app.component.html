@@ -1,42 +1,106 @@
-<div>
-    <h2>fAkToR</h2>
-    <div>
-        <label for="apiKey">x-api-key:</label><input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey">
+<div class="container">
+<h2>fAkToR</h2>
+
+<div class="row">
+    <div class="form-horizontal col-sm-12">
+        <div class="form-group">
+            <label for="apiKey" class="col-sm-2 control-label">x-api-key:</label>
+            <div class="col-sm-10">
+                <input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="quizId" class="control-label col-sm-2">quiz Id:</label>
+            <div class="col-sm-10">
+                <input type="text" [(ngModel)]="params.quizId" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="progressId" class="control-label col-sm-2">progress Id:</label>
+            <div class="col-sm-10">
+                <input type="text" [(ngModel)]="params.progressId" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sectionId" class="control-label col-sm-2">section Id:</label>
+            <div class="col-sm-10">
+                <input type="text" [(ngModel)]="params.sectionId" class="form-control">
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-offset-2 col-sm-10">
+                <label>Parameters:</label>
+                &nbsp;
+                <button class="btn btn-default" (click)="onPersist('save')">
+                    Save
+                </button>
+                &nbsp;
+                <button class="btn btn-default" (click)="onPersist('load')">
+                    Load
+                </button>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="quizId">quiz Id:</label><input type="text" [(ngModel)]="params.quizId">
+</div>
+
+<hr>
+
+<div class="row">
+    <h3>Actions:
+        <button class="btn btn-primary" (click)="onGetQuestions()">
+            Get Questions
+            <span [hidden]="!loadingQuestions">[Loading]</span>
+        </button>
+        &nbsp;
+        <button class="btn btn-primary" [disabled]="quiz.questions.length === 0" (click)="onSend()">
+            Send One
+        </button>
+        &nbsp;
+        <button class="btn btn-primary" [disabled]="quiz.questions.length === 0" (click)="onBegin()">
+            Begin
+        </button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="onStop()">
+            Stop
+        </button>
+        &nbsp;
+        <span [hidden]="!loadingAnswers">Loading...</span>
+    </h3>
+</div>
+
+<hr>
+
+<div class="row">
+    <h3>Stat:
+        <span class="label label-default">
+            Questions: {{ quiz.questions.length }}, Passing: {{ quiz.passingMark }}
+        </span>
+        &nbsp;
+        <span class="label label-primary">
+            Score: {{ solver.assessment?.score }}, Result: {{ solver.assessment?.result }}
+        </span>
+    </h3>
+</div>
+
+<hr>
+
+    <div class="row">
+        <h3>Generations [{{ solver.generations.length }}]:</h3>
+<!--
+<div *ngFor="let g of solver.generations">
+    {{ $index }}.) score: {{ g.score + ' [' + g.result + ']' }}, Q: {{ g.questionIndex }} A: {{ g.answerIndex }} {{ g.info }}
+</div> -->
+
     </div>
-    <div>
-        <label for="progressId">progress Id:</label><input type="text" [(ngModel)]="params.progressId">
-    </div>
-    <div>
-        <label for="sectionId">section Id:</label><input type="text" [(ngModel)]="params.sectionId">
-    </div>
-    <div>
-        <label>Parameters:</label>
-        <button (click)="onPersist('save')">Save</button>
-        <button (click)="onPersist('load')">Load</button>
-    </div>
-    <hr> Actions:
-    <button ng-click="onGetQuestions()">Get Questions</button>
-    <span ng-show="loadingQuestions">Loading...</span>
-    <button ng-disabled="quiz.questions.length === 0" (click)="onSend()">Send One</button>
-    <button ng-disabled="quiz.questions.length === 0" (click)="onBegin()">Begin</button>
-    <button ng-click="onStop()">Stop</button>
-    <span ng-show="loadingAnswers">Loading...</span>
+
     <hr>
-        <app-generation></app-generation>
-    <hr>
-    <!-- <h3>
-        Questions: {{ solver.quiz.questions.length }}, Passing: {{ solver.quiz.passingMark }}, Score {{ solver.assessment.score }},
-        Result: {{ solver.assessment.result }}</h3>
-    <hr>
-    <h3>Generations: {{ solver.generations.length }}</h3>
-    <div *ngFor="let g of solver.generations">
-        {{ $index }}.) score: {{ g.score + ' [' + g.result + ']' }}, Q: {{ g.questionIndex }} A: {{ g.answerIndex }} {{ g.info }}
-    </div> -->
-    <!-- <hr> -->
-    <!-- <div *ngFor="let q of solver.quiz.questions; let i = index"> -->
-        <!-- <question [q]="q" index="{{ i }}"></question> -->
-    <!-- </div> -->
+
+    <div class="row">
+        <h3>Questions [{{quiz.questions.length}}]:</h3>
+        <div *ngFor="let q of quiz.questions; let i = index">
+            <app-question [q]="q" index="{{ i }}"></app-question>
+        </div>
+
+    </div>
+
 </div>

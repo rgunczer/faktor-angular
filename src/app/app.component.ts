@@ -7,6 +7,9 @@ import { StatComponent } from './stat/stat.component';
 
 import * as _ from 'lodash';
 import { Observable, Observer } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { Solver } from './solver';
+import { Quiz } from './quiz';
 
 @Component({
     selector: 'app-root',
@@ -14,12 +17,10 @@ import { Observable, Observer } from 'rxjs';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    hideDiv = true;
-    sampleText = '';
+    loadingQuestions = false;
 
-    myItemSet = true;
-
-    myClassToSet = 'myRed';
+    solver = new Solver();
+    quiz = new Quiz();
 
     @ViewChild(GenerationComponent) private generationComponent: GenerationComponent;
 
@@ -66,7 +67,23 @@ export class AppComponent implements OnInit {
         console.log('showStats...');
     }
 
-    showHideDiv() {
-        this.hideDiv = !this.hideDiv;
+    onGetQuestions() {
+        this.solver.reset();
+        this.quiz.reset();
+
+        this.loadingQuestions = true;
+        this.apiService.getQuestions(this.params.quizId, this.params.xApiKey)
+            .pipe(
+                finalize(() => this.loadingQuestions = false)
+            )
+            .subscribe((data: any) => {
+                console.log(data);
+                this.quiz.questions.length = 0;
+                this.quiz.passingMark = data.assessment.passing_marks;
+                data.assessment.sections[0].questions.forEach(q => {
+                    q.answers[0].selected = true;
+                    this.quiz.questions.push(q);
+                });
+            });
     }
 }

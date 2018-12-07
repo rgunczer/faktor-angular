@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="question-text"> {{ index + '. ' +  q.question }}</span>
+  </div>
+
+  <div class="panel-body">
+    <div *ngFor="let a of q.answers">
+        {{ a.answer }}
+        <input type="checkbox" [(ngModel)]="a.selected">
+    </div>
+  </div>
+</div>
