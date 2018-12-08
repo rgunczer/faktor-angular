@@ -7,5 +7,10 @@ quiz solver
 CSS styled
 one less param to set
 
-to get started clone this branch then: npm install once done ng serve
+## Instructions
+
+clone this repository on your local machine
+get the correct url json file from a private repository copy in the assets directory
+npm install to get all dependencies
+then run with ng serve
 
