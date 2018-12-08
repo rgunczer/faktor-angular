@@ -4,8 +4,7 @@ quiz solver
 
 ## Up to date version
 
-CSS styled
-one less param to set
+CSS styled, one less param to set
 
 ## Instructions
 
