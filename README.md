@@ -10,7 +10,7 @@ CSS styled, one less param to set
 
 clone this repository on your local machine
 
-get the correct url json file from a private repository copy in the assets directory
+get the correct url json file from a private repository copy into assets directory
 
 npm install to get all dependencies
 
