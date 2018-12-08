@@ -1,4 +1,4 @@
-import { Quiz } from './quiz';
+import { Quiz } from './quiz.model';
 
 export class Solver {
 
@@ -13,7 +13,7 @@ export class Solver {
     };
 
     reset() {
-        console.log('reset...');
+        console.log('solver reset...');
         this.questionIndex = 0;
         this.generations.length = 0;
         this.stop = true;
@@ -23,7 +23,7 @@ export class Solver {
     }
 
     init(quiz: Quiz) {
-        console.log('begin to solve:', quiz);
+        console.log('solver init with: ', quiz);
         this.reset();
 
         this.quiz = quiz;
@@ -69,7 +69,7 @@ export class Solver {
             content_id: params.quizId,
             sections: [
                 {
-                    section_id: params.sectionId,
+                    section_id: this.quiz.sectionId,
                     questions: this.getQuestionsWithAnswers(this.quiz.questions)
                 }
             ]

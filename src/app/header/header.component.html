@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">fAkToR</a>
+        <form class="navbar-form navbar-left">
+            <button class="btn btn-default" (click)="onGetQuestions()">
+                Get Questions
+                <span [hidden]="!loadingQuestions">[Loading]</span>
+            </button>
+            &nbsp;
+            <button class="btn btn-default" [disabled]="quiz.questions.length === 0" (click)="onSend()">
+                Send One
+            </button>
+            &nbsp;
+            <button class="btn btn-default" [disabled]="quiz.questions.length === 0" (click)="onBegin()">
+                Begin
+            </button>
+            &nbsp;
+            <button class="btn btn-default" (click)="onStop()">
+                Stop
+            </button>
+            &nbsp;
+            <span [hidden]="!loadingAnswers">Loading...</span>
+        </form>
+    </div>
+</nav>

@@ -1,4 +1,5 @@
 export class Quiz {
+    sectionId: 0;
     passingMark: 0;
     questions: any[] = [];
 

@@ -5,18 +5,23 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { GenerationComponent } from './generation/generation.component';
-
-import * as $ from 'jquery';
 import { QuestionComponent } from './question/question.component';
 
-// console.log(`jQuery version is: ${$.fn.jquery}`);
-// console.log(`Angular version is: ${VERSION.full}`);
+import * as $ from 'jquery';
+import { ParametersComponent } from './parameters/parameters.component';
+import { HeaderComponent } from './header/header.component';
+import { StatComponent } from './stat/stat.component';
+
+console.log(`Angular: ${VERSION.full}, jQuery: ${$.fn.jquery}`);
 
 @NgModule({
     declarations: [
         AppComponent,
         GenerationComponent,
-        QuestionComponent
+        QuestionComponent,
+        ParametersComponent,
+        HeaderComponent,
+        StatComponent
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],

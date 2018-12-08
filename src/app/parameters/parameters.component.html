@@ -1,0 +1,33 @@
+<div class="form-horizontal col-sm-12">
+  <div class="form-group">
+      <label for="apiKey" class="col-sm-2 control-label">x-api-key:</label>
+      <div class="col-sm-10">
+          <input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey" class="form-control">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="quizId" class="control-label col-sm-2">quiz Id:</label>
+      <div class="col-sm-10">
+          <input type="number" [(ngModel)]="params.quizId" class="form-control">
+      </div>
+  </div>
+  <div class="form-group">
+      <label for="progressId" class="control-label col-sm-2">progress Id:</label>
+      <div class="col-sm-10">
+          <input type="number" [(ngModel)]="params.progressId" class="form-control">
+      </div>
+  </div>
+  <div>
+      <div class="col-sm-offset-2 col-sm-10">
+          <label>Parameters:</label>
+          &nbsp;
+          <button class="btn btn-default" (click)="onSave()">
+              Save
+          </button>
+          &nbsp;
+          <button class="btn btn-default" (click)="onLoad()">
+              Load
+          </button>
+      </div>
+  </div>
+</div>

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Settings } from './settings.model';
+import { Parameters } from '../_models/parameters.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UtilService {
+
     private readonly key = 'fAkToRpArAmS';
 
-    constructor() {}
-
-    loadSettings(): Settings {
+    loadParams(): Parameters {
         const str = window.localStorage.getItem(this.key);
-        return JSON.parse(str) || new Settings();
+        return JSON.parse(str) || new Parameters();
     }
 
-    seveSettings(params: Settings): void {
+    saveParams(params: Parameters): void {
         window.localStorage.setItem(this.key, JSON.stringify(params));
     }
+
 }
