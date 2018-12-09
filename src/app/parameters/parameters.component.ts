@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Parameters } from '../_models/parameters.model';
+import { Commands } from '../_models/commands.enum';
 
 @Component({
     selector: 'app-parameters',
@@ -7,6 +8,8 @@ import { Parameters } from '../_models/parameters.model';
     styleUrls: ['./parameters.component.css']
 })
 export class ParametersComponent {
+
+    @Output() message: EventEmitter<number> = new EventEmitter();
 
     @Input() params: Parameters;
     @Output() save = new EventEmitter();
@@ -20,6 +23,10 @@ export class ParametersComponent {
 
     onLoad() {
         this.load.emit();
+    }
+
+    onGetQuestions() {
+        this.message.emit(Commands.GetQuestions);
     }
 
 }
