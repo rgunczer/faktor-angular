@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
-import { UtilService } from './_services/util.service';
 import { ApiService } from './_services/api.service';
 import { FakeApiService } from './_services/fake-api.service';
 
-import { Parameters } from './_models/parameters.model';
 import { Quiz } from './_models/quiz.model';
 import { Solver } from './_models/solver.class';
 import { Commands } from './_models/commands.enum';
+
+import { ParametersComponent } from './parameters/parameters.component';
 
 @Component({
     selector: 'app-root',
@@ -16,17 +16,18 @@ import { Commands } from './_models/commands.enum';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+    @ViewChild(ParametersComponent) paramsComponent;
+
     loadingQuestions = false;
     loadingAnswers = false;
 
     actions: any;
 
-    params = new Parameters();
     solver = new Solver();
     quiz = new Quiz();
 
     constructor(
-        private utilService: UtilService,
         private apiService: ApiService
         // private apiService: FakeApiService
     ) {
@@ -41,27 +42,18 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.apiService.init();
-        this.onLoadParams();
     }
 
     onMessage(command: number): void {
-        this.actions[command].apply(this);
-    }
-
-    onSaveParams() {
-        this.utilService.saveParams(this.params);
-    }
-
-    onLoadParams() {
-        this.params = this.utilService.loadParams();
-        console.log(this.params);
+        this.actions[command].call(this);
     }
 
     private send() {
+        const params = this.paramsComponent.params;
         this.loadingAnswers = true;
-        const obj = this.solver.getObjToSend(this.params);
+        const obj = this.solver.getObjToSend(params);
         this.solver.insertNewGeneration();
-        this.apiService.postAnswers(obj, this.params.xApiKey)
+        this.apiService.postAnswers(obj, params.xApiKey)
             .pipe(
                 finalize(() => this.loadingAnswers = false)
             )
@@ -78,7 +70,7 @@ export class AppComponent implements OnInit {
     }
 
     private begin() {
-        this.onSaveParams();
+        this.paramsComponent.onSaveParams();
         this.solver.init(this.quiz);
         this.solver.stop = false;
         this.send();
@@ -89,10 +81,11 @@ export class AppComponent implements OnInit {
     }
 
     private getQuestions() {
+        const params = this.paramsComponent.params;
         this.quiz.reset();
 
         this.loadingQuestions = true;
-        this.apiService.getQuestions(this.params.quizId, this.params.xApiKey)
+        this.apiService.getQuestions(params.quizId, params.xApiKey)
             .pipe(
                 finalize(() => this.loadingQuestions = false)
             )
