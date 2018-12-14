@@ -15,9 +15,6 @@ export class ParametersComponent implements OnInit {
     @Input() loadingAnswers;
     @Input() quiz;
 
-    @Output() save = new EventEmitter();
-    @Output() load = new EventEmitter();
-
     params = new Parameters();
 
     constructor(private utilService: UtilService) { }
