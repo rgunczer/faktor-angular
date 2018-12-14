@@ -9,7 +9,6 @@ import { QuestionComponent } from './question/question.component';
 
 import * as $ from 'jquery';
 import { ParametersComponent } from './parameters/parameters.component';
-import { HeaderComponent } from './header/header.component';
 import { StatComponent } from './stat/stat.component';
 
 console.log(`Angular: ${VERSION.full}, jQuery: ${$.fn.jquery}`);
@@ -20,7 +19,6 @@ console.log(`Angular: ${VERSION.full}, jQuery: ${$.fn.jquery}`);
         GenerationComponent,
         QuestionComponent,
         ParametersComponent,
-        HeaderComponent,
         StatComponent
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],

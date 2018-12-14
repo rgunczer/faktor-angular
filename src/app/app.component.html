@@ -1,7 +1,7 @@
 <!-- <app-header (message)="onMessage($event)" [loadingQuestions]="loadingQuestions" [loadingAnswers]="loadingAnswers" [quiz]="quiz"></app-header> -->
 <div class="container">
     <div class="row">
-        <app-parameters (message)="onMessage($event)" [params]="params" (save)="onSaveParams()" (load)="onLoadParams()"></app-parameters>
+        <app-parameters (message)="onMessage($event)" [params]="params" (save)="onSaveParams()" (load)="onLoadParams()" [loadingQuestions]="loadingQuestions" [loadingAnswers]="loadingAnswers" [quiz]="quiz"></app-parameters>
     </div>
     <div class="row stat-row" [ngStyle]="{ 'background-color': solver.assessment?.result == 'PASS' ? 'lightgreen' : 'lightgray' }">
         <app-stat [quiz]="quiz" [solver]="solver"></app-stat>

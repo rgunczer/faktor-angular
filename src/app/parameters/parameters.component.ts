@@ -10,12 +10,15 @@ import { Commands } from '../_models/commands.enum';
 export class ParametersComponent {
 
     @Output() message: EventEmitter<number> = new EventEmitter();
+    @Input() loadingQuestions;
+    @Input() loadingAnswers;
+    @Input() quiz;
 
     @Input() params: Parameters;
     @Output() save = new EventEmitter();
     @Output() load = new EventEmitter();
 
-    constructor() {}
+    constructor() { }
 
     onSave() {
         this.save.emit();
@@ -27,6 +30,18 @@ export class ParametersComponent {
 
     onGetQuestions() {
         this.message.emit(Commands.GetQuestions);
+    }
+
+    onSend() {
+        this.message.emit(Commands.Send);
+    }
+
+    onBegin() {
+        this.message.emit(Commands.Begin);
+    }
+
+    onStop() {
+        this.message.emit(Commands.Stop);
     }
 
 }
