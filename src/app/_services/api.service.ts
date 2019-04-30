@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
@@ -56,15 +56,32 @@ export class ApiService {
         );
     }
 
+    // postAnswers(obj, xApiKey): Observable<any> {
+    //     // console.log(`postAnswer: ${JSON.stringify(obj)}`);
+    //     return this.http.post(
+    //         this.url.a,
+    //         {
+    //             data: JSON.stringify(obj)
+    //             // data: obj
+    //         },
+    //         {
+    //             headers: {
+    //                 'X-Api-Key': xApiKey
+    //             }
+    //         }
+    //     );
+    // }
+
     postAnswers(obj, xApiKey): Observable<any> {
-        // console.log(`postAnswer: ${JSON.stringify(obj)}`);
+        const payload = new HttpParams()
+            .set('data', JSON.stringify(obj));
+
         return this.http.post(
             this.url.a,
-            {
-                data: JSON.stringify(obj)
-            },
+            payload,
             {
                 headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
                     'X-Api-Key': xApiKey
                 }
             }
