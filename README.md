@@ -14,5 +14,6 @@ get the correct url json file from a private repository copy into assets directo
 
 npm install to get all dependencies
 
-run with ng serve
+run with ng serve or npm start
 
+ 
