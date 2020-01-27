@@ -6,3 +6,20 @@
 .myRed {
     background-color: red;
 }
+
+.div-with-slider {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.div-with-slider > label
+{
+    vertical-align:middle;
+
+}
+
+#not-found-treshold
+{
+    vertical-align:middle;
+
+}

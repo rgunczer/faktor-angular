@@ -8,15 +8,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class QuestionListComponent implements OnInit {
 
     @Input() questionList: any[] = [];
-    @Output() select: EventEmitter<any> = new EventEmitter();
+    @Output() selectAssessment: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    selectAssessment(q: any) {
-        this.select.emit(q);
+    select(assessment: any) {
+        this.selectAssessment.emit(assessment);
     }
 
 }

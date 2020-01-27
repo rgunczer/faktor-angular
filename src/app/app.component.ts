@@ -71,11 +71,11 @@ export class AppComponent implements OnInit {
         this.frozenList.push(cloneDeep(questionObj));
     }
 
-    onSelectQuestionList(boo: any) {
+    onSelectAssessment(assessment: any): void {
         this.quiz.questions.length = 0;
-        boo.data.assessment.sections[0].questions.forEach(q => {
-            q.answers[0].selected = true;
-            this.quiz.questions.push(q);
+        assessment.data.assessment.sections[0].questions.forEach(question => {
+            question.answers[0].selected = true;
+            this.quiz.questions.push(question);
         });
         this.solver.init(this.quiz);
 
@@ -195,7 +195,7 @@ export class AppComponent implements OnInit {
                     q.answers[0].selected = true;
                     this.quiz.questions.push(q);
                 });
-                // this.solver.init(this.quiz);
+                this.solver.init(this.quiz);
 
                 this.questionList.unshift({
                     id: this.sequence++,
@@ -209,7 +209,7 @@ export class AppComponent implements OnInit {
 
                 if (!this.stopGettingMoreQuestions) {
 
-                    if (this.notFoundCount) {
+                    if (this.notFoundCount > this.notFoundTreshold) {
                         setTimeout(() => {
                             this.getQuestions();
                         }, 500);

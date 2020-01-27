@@ -1,13 +1,13 @@
 <div class="card bg-light">
 
     <div class="card-header">
-        <h4 class="panel-title">Received Questions [{{questionList.length}}]</h4>
+        <h4>Received Questions [{{questionList.length}}]</h4>
     </div>
 
     <div class="card-body">
 
         <div class="list-group">
-            <a href="javascript:void(0)" class="list-group-item list-group-item-action" *ngFor="let q of questionList" (click)="selectAssessment(q)">
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action" *ngFor="let q of questionList" (click)="select(q)">
                 {{q.id}} -
                 {{q.time | date:'medium' }} -
                 {{q.data.assessment.id}}

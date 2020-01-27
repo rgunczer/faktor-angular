@@ -23,14 +23,18 @@
                 Stop Getting Questions
             </button>
 
-            <span [hidden]="!loadingQuestions">Loading Questions...</span>
-            <span [hidden]="!loadingAnswers">Loading Answers...</span>
+            <span [hidden]="!loadingQuestions">Getting Questions...</span>
+            <span [hidden]="!loadingAnswers">Getting Answers...</span>
 
         </div>
 
         <div class="col-4">
-            <label for="not-found-treshold">Not Found Treshold</label>
-            <input type="number" id="not-found-treshold" class="number" [(ngModel)]="notFoundTreshold">
+            <div class="div-with-slider">
+                <label for="not-found-treshold">Not Found Treshold:&nbsp;</label>
+                <input type="range" name="points" min="0" max="10" id="not-found-treshold"
+                    [(ngModel)]="notFoundTreshold">
+                &nbsp;{{notFoundTreshold}}
+            </div>
         </div>
 
         <div class="col-2">
@@ -44,7 +48,7 @@
     <app-stat [quiz]="quiz" [solver]="solver"></app-stat>
     <div class="row" style="padding-top: 20px">
         <div class="col-md-3">
-            <app-question-list [questionList]="questionList" (select)="onSelectQuestionList($event)">
+            <app-question-list [questionList]="questionList" (selectAssessment)="onSelectAssessment($event)">
             </app-question-list>
         </div>
         <div class="col-md-3">
