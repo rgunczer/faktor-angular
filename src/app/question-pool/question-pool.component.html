@@ -1,0 +1,15 @@
+<div class="card bg-light">
+
+    <div class="card-header">
+        <h4 class="panel-title">Question Pool [{{list.length}}]</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div *ngFor="let q of list; let i = index">
+            <app-question [q]="q" index="{{ i }}" (froze)="onFrozeAnswerForQuestion($event)"></app-question>
+        </div>
+
+    </div>
+
+</div>

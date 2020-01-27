@@ -1,65 +1,36 @@
-<div class="form-horizontal">
-    <div class="panel panel-primary">
+<div class="card bg-light">
 
-        <div class="panel-heading">
-            <h3 class="panel-title">fAkToR: Quiz Solver</h3>
+    <div class="card-header">
+        <h4 class="panel-title">Quiz Parameters</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="form-group">
+            <label for="apiKey">x-api-key:</label>
+            <input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey" class="form-control">
         </div>
-
-        <div class="panel-body">
-
-            <div class="form-group">
-                <label for="apiKey" class="col-sm-2 control-label">x-api-key:</label>
-                <div class="col-sm-10">
-                    <input name="apiKey" type="text" size=50 [(ngModel)]="params.xApiKey" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="quizId" class="control-label col-sm-2">quiz Id:</label>
-                <div class="col-sm-10">
-                    <input type="number" [(ngModel)]="params.quizId" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="progressId" class="control-label col-sm-2">progress Id:</label>
-                <div class="col-sm-10">
-                    <input type="number" [(ngModel)]="params.progressId" class="form-control">
-                </div>
-            </div>
-
-            <div class="col-sm-offset-2 col-sm-10">
-                <label>Parameters:</label>
-                &nbsp;
-                <button class="btn btn-default" (click)="onSaveParams()">
-                    Save
-                </button>
-                &nbsp;
-                <button class="btn btn-default" (click)="onLoadParams()">
-                    Load
-                </button>
-            </div>
-
+        <div class="form-group">
+            <label for="quizId">quiz Id:</label>
+            <input type="number" [(ngModel)]="params.quizId" class="form-control">
         </div>
-
-        <div class="panel-footer">
-            <button class="btn btn-primary" (click)="onGetQuestions()">
-                Get Questions
-                <span [hidden]="!loadingQuestions">[Loading]</span>
-            </button>
-            &nbsp;
-            <button class="btn btn-primary" [disabled]="quiz.questions.length === 0" (click)="onSend()">
-                Send One
-            </button>
-            &nbsp;
-            <button class="btn btn-primary" [disabled]="quiz.questions.length === 0" (click)="onBegin()">
-                Begin
-            </button>
-            &nbsp;
-            <button class="btn btn-primary" (click)="onStop()">
-                Stop
-            </button>
-            &nbsp;
-            <span [hidden]="!loadingAnswers">Loading...</span>
+        <div class="form-group">
+            <label for="progressId">progress Id (from progresses.json id field):</label>
+            <input type="number" [(ngModel)]="params.progressId" class="form-control">
         </div>
 
     </div>
+
+    <div class="card-footer">
+
+        <button class="btn btn-secondary" (click)="onSaveParams()">
+            Save
+        </button>
+        &nbsp;
+        <button class="btn btn-secondary" (click)="onLoadParams()">
+            Load
+        </button>
+
+    </div>
+
 </div>

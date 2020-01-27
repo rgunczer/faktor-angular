@@ -1,18 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+    selector: 'app-question',
+    templateUrl: './question.component.html',
+    styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
 
-  @Input() q;
-  @Input() index;
+    @Input() showFrozeButton = true;
+    @Input() q;
+    @Input() index;
+    @Output() froze: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    frozeAnswer() {
+        this.froze.emit(this.q);
+    }
 
 }

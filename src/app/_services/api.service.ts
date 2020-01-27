@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
+import { CustomHttpUrlEncodingCodec } from '../class/CustomHttpUrlEncodingCodec';
 
 interface IUrlData {
     q: string;
     a: string;
+    p: string;
 }
 
 @Injectable({
@@ -15,7 +17,8 @@ export class ApiService {
 
     private url: IUrlData = {
         q: '',
-        a: ''
+        a: '',
+        p: ''
     };
     private lastHttpError: any = null;
 
@@ -73,8 +76,8 @@ export class ApiService {
     // }
 
     postAnswers(obj, xApiKey): Observable<any> {
-        const payload = new HttpParams()
-            .set('data', JSON.stringify(obj));
+        let payload = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+        payload = payload.set('data', JSON.stringify(obj));
 
         return this.http.post(
             this.url.a,
@@ -86,6 +89,14 @@ export class ApiService {
                 }
             }
         );
+    }
+
+    getProgresses(xApiKey: string): Observable<any> {
+        return this.http.get(this.url.p, {
+            headers: {
+                'X-Api-Key': xApiKey
+            }
+        });
     }
 
 }

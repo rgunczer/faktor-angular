@@ -1,0 +1,20 @@
+<div class="card bg-light">
+
+    <div class="card-header">
+        <h4 class="panel-title">Frozen Answers [{{list.length}}]</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div *ngFor="let q of list; let i = index">
+            <app-question [showFrozeButton]="false" [q]="q" index="{{ i }}"></app-question>
+        </div>
+
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-secondary mr-1" (click)="onSave()">Save</button>
+        <button class="btn btn-secondary" (click)="onLoad()">Load</button>
+    </div>
+
+</div>

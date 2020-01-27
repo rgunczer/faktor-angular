@@ -1,12 +1,15 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <span class="question-text"> {{ index + '. ' +  q.question }}</span>
+<div class="card bg-transparent" style="margin-bottom: 20px;">
+
+  <div class="card-header" [ngStyle]="{'background-color': q.frozen ? 'yellow' : ''}">
+    <span class="question-text"> {{ index + '.) [' + q.id + ']' + ' ' + q.question }}</span>
+  <button class="btn btn-link" *ngIf="showFrozeButton" (click)="frozeAnswer(q)">Froze</button>
   </div>
 
-  <div class="panel-body">
+  <div class="card-body">
     <div *ngFor="let a of q.answers">
-        {{ a.answer }}
+        [{{a.id}}] - {{ a.answer }}
         <input type="checkbox" [(ngModel)]="a.selected">
     </div>
   </div>
+
 </div>

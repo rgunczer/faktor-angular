@@ -1,20 +1,73 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <app-parameters (message)="onMessage($event)" [loadingQuestions]="loadingQuestions" [loadingAnswers]="loadingAnswers" [quiz]="quiz"></app-parameters>
-    </div>
-    <div class="row stat-row" [ngStyle]="{ 'background-color': solver.assessment?.result == 'PASS' ? 'lightgreen' : 'lightgray' }">
-        <app-stat [quiz]="quiz" [solver]="solver"></app-stat>
-    </div>
-    <div class="row">
-        <h3>Generations [{{ solver.generations.length }}]:</h3>
-        <div *ngFor="let g of solver.generations; let i = index">
-            <app-generation [g]="g" index="{{ i }}"></app-generation>
+        <div class="col-md-6">
+            <app-progresses (message)="onMessage($event)" (activate)="onActivateProgress($event)" [list]="progresses">
+            </app-progresses>
+        </div>
+        <div class="col-md-6">
+            <app-parameters (message)="onMessage($event)" [loadingQuestions]="loadingQuestions"
+                [loadingAnswers]="loadingAnswers" [quiz]="quiz"></app-parameters>
         </div>
     </div>
-    <div class="row">
-        <h3>Questions [{{quiz.questions.length}}]:</h3>
-        <div *ngFor="let q of quiz.questions; let i = index">
-            <app-question [q]="q" index="{{ i }}"></app-question>
+    <div class="row" style="padding: 10px;">
+        <div class="col-6">
+            <button class="btn btn-primary mr-1" (click)="onGetOneQuestion()">
+                Get One Question
+            </button>
+
+            <button class="btn btn-primary mr-1" (click)="onBeginGettingQuestions()">
+                Begin Getting Questions
+            </button>
+
+            <button class="btn btn-primary mr-1" (click)="onStopGettingQuestions()">
+                Stop Getting Questions
+            </button>
+
+            <span [hidden]="!loadingQuestions">Loading Questions...</span>
+            <span [hidden]="!loadingAnswers">Loading Answers...</span>
+
+        </div>
+
+        <div class="col-4">
+            <label for="not-found-treshold">Not Found Treshold</label>
+            <input type="number" id="not-found-treshold" class="number" [(ngModel)]="notFoundTreshold">
+        </div>
+
+        <div class="col-2">
+            <button class="btn btn-primary mr-1" style="float: right;" [disabled]="quiz.questions.length === 0"
+                (click)="onSendAnswers()">
+                Send Answers
+            </button>
+        </div>
+
+    </div>
+    <app-stat [quiz]="quiz" [solver]="solver"></app-stat>
+    <div class="row" style="padding-top: 20px">
+        <div class="col-md-3">
+            <app-question-list [questionList]="questionList" (select)="onSelectQuestionList($event)">
+            </app-question-list>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h4>Selected Question Set [{{quiz.questions.length}}]:</h4>
+                </div>
+
+                <div class="card-body">
+                    <p>Not Found on Frozen List: {{notFoundCount}}</p>
+                    <!-- <p *ngFor="let item of frozenListCheckResult">{{ item.id + ' ' + item.found }}</p> -->
+
+                    <div *ngFor="let q of quiz.questions; let i = index">
+                        <app-question [q]="q" index="{{ i }}" (froze)="onFrozeAnswerForQuestion($event)"></app-question>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <app-question-pool [list]="questionPool" (froze)="onFrozeAnswerForQuestion($event)"></app-question-pool>
+        </div>
+        <div class="col-md-3">
+            <app-frozen-answer-list [list]="frozenList" (persist)="onPersist($event)"></app-frozen-answer-list>
         </div>
     </div>
 </div>

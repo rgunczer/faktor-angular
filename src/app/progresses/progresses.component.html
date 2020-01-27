@@ -1,0 +1,43 @@
+<div class="card bg-light">
+
+    <div class="card-header">
+        <h4 class="panel-title">Progresses [{{filteredList.length}}] - {{show}}</h4>
+        <label>
+            <input type="radio" value="completed" name="show" [(ngModel)]="show" (ngModelChange)="showChanged($event)">
+            Completed
+        </label>
+        &nbsp;
+        <label>
+            <input type="radio" value="started" name="show" [(ngModel)]="show" (ngModelChange)="showChanged($event)">
+            Started
+        </label>
+        &nbsp;
+        <label>
+            <input type="radio" value="all" name="show" [(ngModel)]="show" (ngModelChange)="showChanged($event)">
+            All
+        </label>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-10">
+                <select name="sometext" size="14" style="width: 100%" [(ngModel)]="selectedItem">
+                    <option *ngFor="let item of filteredList" [ngValue]="item">{{item.id}} - {{item.node.name}} - {{item.status}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-secondary" (click)="activateSelected()">Set Param</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+
+        <button class="btn btn-secondary" (click)="onGetProgresses()">
+            Get Progresses
+        </button>
+
+    </div>
+
+</div>

@@ -10,6 +10,10 @@ import { QuestionComponent } from './question/question.component';
 import * as $ from 'jquery';
 import { ParametersComponent } from './parameters/parameters.component';
 import { StatComponent } from './stat/stat.component';
+import { ProgressesComponent } from './progresses/progresses.component';
+import { QuestionListComponent } from './question-list/question-list.component';
+import { FrozenAnswerListComponent } from './frozen-answer-list/frozen-answer-list.component';
+import { QuestionPoolComponent } from './question-pool/question-pool.component';
 
 console.log(`Angular: ${VERSION.full}, jQuery: ${$.fn.jquery}`);
 
@@ -19,7 +23,11 @@ console.log(`Angular: ${VERSION.full}, jQuery: ${$.fn.jquery}`);
         GenerationComponent,
         QuestionComponent,
         ParametersComponent,
-        StatComponent
+        StatComponent,
+        ProgressesComponent,
+        QuestionListComponent,
+        FrozenAnswerListComponent,
+        QuestionPoolComponent
     ],
     imports: [BrowserModule, FormsModule, HttpClientModule],
     providers: [],
