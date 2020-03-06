@@ -263,4 +263,11 @@ export class AppComponent implements OnInit {
         return result;
     }
 
+    test(searchValue: string) {
+        const params = this.paramsComponent.params;
+
+        this.apiService.getUser(searchValue, params.xApiKey)
+            .subscribe(data => console.log(data));
+    }
+
 }

@@ -8,6 +8,7 @@ interface IUrlData {
     q: string;
     a: string;
     p: string;
+    s: string;
 }
 
 @Injectable({
@@ -18,11 +19,12 @@ export class ApiService {
     private url: IUrlData = {
         q: '',
         a: '',
-        p: ''
+        p: '',
+        s: ''
     };
     private lastHttpError: any = null;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getUrlObject() {
         return this.url;
@@ -42,9 +44,9 @@ export class ApiService {
             .pipe(
                 catchError(this.errHandler)
             )
-            .subscribe( (data: IUrlData) => {
+            .subscribe((data: IUrlData) => {
                 this.url = data;
-            } );
+            });
     }
 
     getQuestions(quizId: number, xApiKey: string): Observable<any> {
@@ -97,6 +99,21 @@ export class ApiService {
                 'X-Api-Key': xApiKey
             }
         });
+    }
+
+    getUser(nameOrEmpIdOrEmail: string, xApiKey: string): Observable<any> {
+        let payload = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+        payload = payload.set('query', nameOrEmpIdOrEmail);
+
+        return this.http.post(
+            this.url.s,
+            payload,
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Api-Key': xApiKey
+                }
+            });
     }
 
 }

@@ -74,4 +74,6 @@
             <app-frozen-answer-list [list]="frozenList" (persist)="onPersist($event)"></app-frozen-answer-list>
         </div>
     </div>
+    <input type="text"  #inp />
+    <button (click)="test(inp.value)">Test</button>
 </div>
